@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, redirect
-from inteleXual.models import db, Project, User
+from inteleXual.models import db, Project, User, File, Assignment
 from datetime import datetime
 from flask_login import login_required, logout_user, login_user, current_user
 from sqlalchemy import or_
@@ -7,11 +7,26 @@ from sqlalchemy import or_
 projects = Blueprint('projects', __name__)
 
 
-@projects.route('', methods=['GET', 'POST'])
+@projects.route('', methods=['GET'])
 def index():
     if request.method == 'GET':
         response = Project.query.all()
         return {"projects": [project.to_dict() for project in response]}
+
+@projects.route('/<id>', methods=['GET'])
+def one(id):
+    # print("id equals", id)
+    if request.method == 'GET':
+        project = Project.query.get(int(id))
+        files = File.query.filter(File.project_id == id)
+        file_list = list()
+        for file in files:
+            file_list.append(file.to_dict())
+        assignments = Assignment.query.filter(Assignment.project_id == id)
+        user_list = list()
+        for assignment in assignments:
+            user_list.append(User.query.get(assignment.user_id).to_dict())
+        return {"project": project.to_dict(), "files": file_list, "users": user_list}
     # if request.method == 'POST':
     #     if not request.is_json:
     #         return jsonify({"msg": "Missing JSON in request"}), 400

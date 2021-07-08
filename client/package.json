@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^5.0.2",
     "http-proxy-middleware": "^1.0.5",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-bootstrap-table-next": "^4.0.3",
     "react-dom": "^16.13.1",

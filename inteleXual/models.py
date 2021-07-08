@@ -61,7 +61,7 @@ class Project(db.Model, UserMixin):
         return {
             "id": self.id,
             "name": self.name,
-            "email": self.proj_start_date,
+            "proj_start_date": self.proj_start_date,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
@@ -82,7 +82,7 @@ class File(db.Model, UserMixin):
     def to_dict(self):
         return {
             "id": self.id,
-            "project_id": self.projet_id,
+            "project_id": self.project_id,
             "name": self.name,
             "file_type": self.file_type,
             "created_at": self.created_at,
@@ -106,6 +106,6 @@ class Assignment(db.Model, UserMixin):
             "project_id": self.date_id,
             "created_at": self.created_at
         }
-        
+
     user = db.relationship("User", back_populates="assignments")
     project = db.relationship("Project", back_populates="assignments")

@@ -10,9 +10,9 @@ seed(1)
 fake = Faker()
 load_dotenv()
 
-n_projects = 10
+n_projects = 20
 prob_assign = 0.7
-n_files = 4
+n_files = 10
 
 users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
 
