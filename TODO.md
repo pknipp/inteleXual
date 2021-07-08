@@ -1,1 +1,1 @@
-Create separate front-end and back-end versions of this.
+create FileType table
