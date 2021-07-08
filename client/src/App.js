@@ -12,7 +12,7 @@ import Projects from './components/Projects';
 
 
 const App = _ => {
-    const [fetchWithCSRF, setFetchWithCSRF] = useState(() => fetch);
+    // const [fetchWithCSRF, setFetchWithCSRF] = useState(() => fetch);
     // const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     // const authContextValue = {
@@ -35,7 +35,7 @@ const App = _ => {
         <>
             {loading ? <h1>Loading</h1> :
                 <BrowserRouter>
-                    // {/* <NavBar currentUser={currentUser} /> */}
+                    {/* // <NavBar currentUser={currentUser} /> */}
                     <Switch>
                         {/* <AuthRoute exact path="/login" component={LogIn} />
                         <AuthRoute exact path="/signup" component={SignUp} />
