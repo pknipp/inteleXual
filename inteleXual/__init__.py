@@ -6,8 +6,9 @@ from flask_login import LoginManager, \
     current_user, login_user, logout_user, login_required
 from flask_migrate import Migrate
 from inteleXual.models import db, User
-from inteleXual.api.session import session
-from inteleXual.api.users import users
+from inteleXual.api.projects import projects
+# from inteleXual.api.session import session
+# from inteleXual.api.users import users
 from inteleXual.config import Config
 from datetime import datetime
 
@@ -16,8 +17,9 @@ app = Flask(__name__)
 login_manager = LoginManager(app)
 migrate = Migrate(app, db)
 app.config.from_object(Config)
-app.register_blueprint(session, url_prefix='/api/session')
-app.register_blueprint(users, url_prefix='/api/users')
+app.register_blueprint(projects, url_prefix='/api/projects')
+# app.register_blueprint(session, url_prefix='/api/session')
+# app.register_blueprint(users, url_prefix='/api/users')
 db.init_app(app)
 
 

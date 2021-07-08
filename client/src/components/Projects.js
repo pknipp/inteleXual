@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import AuthContext from '../auth'
+// import { useHistory } from 'react-router-dom';
+// import AuthContext from '../auth'
+import Project from './Project';
 
 const Projects = () => {
     // const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const Projects = () => {
     // const [errors, setErrors] = useState([]);
     // const [messages, setMessages] = useState([]);
     const [projects, setProjects] = useState([]);
-    let history = useHistory();
+    // let history = useHistory();
 
     const getProjects = async () => {
         const response = await fetch("/api/projects");
@@ -26,10 +27,10 @@ const Projects = () => {
 
     return (
         <>
-        Projects will be listed under here.
-        {projects.map(project => (
-            "Project"
-        ))}
+            Projects will be listed under here.
+            <ul>
+                {projects.map(project => <Project key={`project${project.id}`} project={project} />)}
+            </ul>
         </>
     )
 };
