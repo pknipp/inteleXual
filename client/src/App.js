@@ -24,7 +24,8 @@ const App = _ => {
     useEffect(() => {
         (async () => {
             const response = await fetch('/restore');
-            const data = await response.json();
+            // const data =
+            await response.json();
             // setCurrentUser(data.current_user);
             setLoading(false);
         })()

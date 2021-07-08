@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 // import AuthContext from '../auth'
-import Project from './Project';
+// import Project from './Project';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 const Projects = () => {
     // const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
@@ -18,19 +19,28 @@ const Projects = () => {
         const newProjects = (await response.json()).projects;
         // setErrors(data.errors || []);
         // setMessages(data.messages || []);
+        console.log(newProjects);
         setProjects(newProjects || []);
     };
 
     useEffect(() => {
         getProjects();
     }, []);
+    const columns = [{
+        dataField: 'name',
+        text: 'Name'
+      }, {
+        dataField: 'proj_start_date',
+        text: 'Start date'
+      }];
 
     return (
         <>
             Projects will be listed under here.
-            <ul>
+            <BootstrapTable keyField='id' data={ projects } columns={ columns } />
+            {/* <ul>
                 {projects.map(project => <Project key={`project${project.id}`} project={project} />)}
-            </ul>
+            </ul> */}
         </>
     )
 };
