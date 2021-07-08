@@ -92,21 +92,20 @@ class File(db.Model, UserMixin):
     project = db.relationship("Project", back_populates="files")
 
 
-    class Assignment(db.Model, UserMixin):
-        __tablename__ = 'assignments'
+class Assignment(db.Model, UserMixin):
+    __tablename__ = 'assignments'
 
-        id = db.Column(db.Integer, primary_key=True)
-        user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-        project_id = db.Column(db.Integer,db.ForeignKey("projects.id"), nullable=False)
-        created_at = db.Column(db.DateTime, nullable=False)
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "user_id": self.user_id,
-                "project_id": self.date_id,
-                "created_at": self.created_at
-            }
-
-        user = db.relationship("User", back_populates="assignments")
-        project = db.relationship("Project", back_populates="assignments")
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    project_id = db.Column(db.Integer,db.ForeignKey("projects.id"), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "project_id": self.date_id,
+            "created_at": self.created_at
+        }
+        
+    user = db.relationship("User", back_populates="assignments")
+    project = db.relationship("Project", back_populates="assignments")

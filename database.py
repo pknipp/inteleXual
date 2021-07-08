@@ -1,4 +1,4 @@
-from inteleXual.models import User, Project, File
+from inteleXual.models import User, Project, File, Assignment
 from inteleXual import app, db
 from dotenv import load_dotenv
 from datetime import date, datetime, timedelta
@@ -48,5 +48,12 @@ with app.app_context():
                     file_type=fake.text(max_nb_chars=5),
                     created_at=file_created_at,
                     updated_at=fake.date_time_between(start_date=file_created_at)
+                ))
+        for j in range(len(users)):
+            if random() < prob_assign:
+                db.session.add(Assignment(
+                    project_id=(i + 1),
+                    user_id=(j + 1),
+                    created_at=fake.date_time_between(start_date=created_at)
                 ))
     db.session.commit()
