@@ -5,14 +5,15 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 const Project = ({match}) => {
     const projectId = Number(match.params.id);
+    const [project, setProject] = useState({});
     const [files, setFiles] = useState([]);
     const [users, setUsers] = useState([]);
     let history = useHistory();
 
     const getProject = async () => {
         const response = await fetch(`/api/projects/${projectId}`);
-        const {users: newUsers, files: newFiles} = await response.json();
-        // setProject(newProject);
+        const {project: newProject, users: newUsers, files: newFiles} = await response.json();
+        setProject(newProject);
         setUsers(newUsers);
         setFiles(newFiles);
     };
@@ -22,36 +23,37 @@ const Project = ({match}) => {
     }, [projectId]);
 
     const defaultSorted = [{
-        dataField: 'name',
-        order: 'asc'
-      }];
+      dataField: 'name',
+      order: 'asc'
+    }];
 
     const userColumns = [{
       dataField: 'name',
-      text: 'Name',
+      text: 'User name',
       sort: true
     }, {
       dataField: 'email',
-      text: 'Email',
+      text: 'User email',
       sort: true,
     }];
 
     const fileColumns = [{
       dataField: 'name',
-      text: 'Name',
+      text: 'File name',
       sort: true
     }, {
       dataField: 'file_type',
-      text: 'Type',
+      text: 'File type',
       sort: true
     }];
 
     return (
-        <>
-            <BootstrapTable keyField='id' data={ users } columns={ userColumns } defaultSorted={defaultSorted}/>
-            <BootstrapTable keyField='id' data={ files } columns={ fileColumns } defaultSorted={defaultSorted}/>
-            <button onClick={() => history.push('/')}>Back to all projects</button>
-        </>
+      <>
+        <h3>Details about Project "{project.name}"</h3>
+        <BootstrapTable keyField='id' data={ users } columns={ userColumns } defaultSorted={defaultSorted}/>
+        <BootstrapTable keyField='id' data={ files } columns={ fileColumns } defaultSorted={defaultSorted}/>
+        <button onClick={() => history.push('/')}>Back to all projects</button>
+      </>
     )
 };
 

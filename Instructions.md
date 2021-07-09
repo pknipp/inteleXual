@@ -44,6 +44,8 @@ pipenv install --dev -r dev-requirements.txt --python=python3 && pipenv install 
    There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
 ***
 
+*MISC* If problems arise, try deleting .venv and repeating pipenv install etc
+
 
 ## Deploy to Heroku
 
