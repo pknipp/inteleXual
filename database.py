@@ -1,4 +1,4 @@
-from inteleXual.models import User, Project, File, Assignment
+from inteleXual.models import User, Project, File, FileType, Assignment
 from inteleXual import app, db
 from dotenv import load_dotenv
 from datetime import date, datetime, timedelta
@@ -16,11 +16,19 @@ n_files = 10
 n_users = 10
 
 # users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
+file_types = ["xls", "doc", "pdf", "rtf", "jpg", "gif", "tiff", "png", "ppt", "eps", "mov", "html", "js", "py", "txt", "tex"]
 
 with app.app_context():
     db.drop_all()
     db.create_all()
-    # for user in users:
+    for file_type in file_types:
+        created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
+        db.session.add(FileType(
+            name=file_type,
+            created_at=created_at,
+            updated_at=fake.date_time_between(start_date=created_at)
+        ))
+    # db.session.commit()
     for i in range(n_users):
         f_n = fake.first_name()
         l_n = fake.last_name()
@@ -33,15 +41,14 @@ with app.app_context():
         email = email0 + "@" + fake.email().split("@")[1]
         created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
         db.session.add(User(
-            # email = fake.email
             email=email,
             name=name,
             created_at=created_at,
             updated_at=fake.date_time_between(start_date=created_at)
         ))
-    db.session.commit()
+    # db.session.commit()
 
-with app.app_context():
+# with app.app_context():
     for i in range(n_projects):
         created_at=fake.date_time_between(start_date='-10y', end_date='now')
         db.session.add(Project(
@@ -56,7 +63,7 @@ with app.app_context():
                 db.session.add(File(
                     project_id=(i + 1),
                     name=fake.text(max_nb_chars=20),
-                    file_type=fake.text(max_nb_chars=5),
+                    file_type_id=(1 + randrange(len(file_types))),
                     created_at=file_created_at,
                     updated_at=fake.date_time_between(start_date=file_created_at)
                 ))

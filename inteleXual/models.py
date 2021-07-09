@@ -54,21 +54,40 @@ class File(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"), nullable=False)
+    file_type_id = db.Column(db.Integer, db.ForeignKey("file_types.id"), nullable=False)
     name = db.Column(db.String(63), nullable=False, unique=True)
-    file_type = db.Column(db.String(63), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
     def to_dict(self):
         return {
             "id": self.id,
             "project_id": self.project_id,
+            "file_type_id": self.file_type_id,
             "name": self.name,
-            "file_type": self.file_type,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
 
     project = db.relationship("Project", back_populates="files")
+    file_type = db.relationship("FileType", back_populates="files")
+
+
+class FileType(db.Model, UserMixin):
+    __tablename__ = 'file_types'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(63), nullable=False, unique=True)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
+
+    files = db.relationship("File", back_populates="file_type", cascade="all, delete-orphan")
 
 
 class Assignment(db.Model, UserMixin):
