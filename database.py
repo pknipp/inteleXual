@@ -15,18 +15,27 @@ prob_assign = 0.7
 n_files = 10
 n_users = 10
 
-users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
+# users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
 
 with app.app_context():
     db.drop_all()
     db.create_all()
     # for user in users:
-    for i = range(n_users):
+    for i in range(n_users):
+        f_n = fake.first_name()
+        l_n = fake.last_name()
+        name = f_n + " " + l_n
+        f_n = f_n.lower()[:6]
+        l_n = l_n.lower()[:6]
+        f = f_n[:1]
+        l = l_n[:1]
+        email0 = [f_n + l_n, f_n + '.' + l_n, f + l_n, f + '.' + l_n, f_n + l, f_n + '.' + l][randrange(6)]
+        email = email0 + "@" + fake.email().split("@")[1]
         created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
         db.session.add(User(
-            email = fake.email
-            # email=user[0],
-            # name=user[1],
+            # email = fake.email
+            email=email,
+            name=name,
             created_at=created_at,
             updated_at=fake.date_time_between(start_date=created_at)
         ))
@@ -51,7 +60,7 @@ with app.app_context():
                     created_at=file_created_at,
                     updated_at=fake.date_time_between(start_date=file_created_at)
                 ))
-        for j in range(len(users)):
+        for j in range(n_users):
             if random() < prob_assign:
                 db.session.add(Assignment(
                     project_id=(i + 1),
