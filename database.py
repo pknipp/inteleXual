@@ -10,10 +10,10 @@ seed(1)
 fake = Faker()
 load_dotenv()
 
-n_projects = 14
-prob_assign = 0.7
-n_files = 8
-n_users = 8
+n_projects = 25
+prob_assign = 0.5
+n_files = 25
+n_users = 30
 
 # users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
 file_types = ["xls", "doc", "pdf", "rtf", "jpg", "gif", "tiff", "png", "ppt", "eps", "mov", "html", "js", "py", "txt", "tex"]

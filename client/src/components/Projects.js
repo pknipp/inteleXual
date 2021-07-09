@@ -26,7 +26,7 @@ const Projects = () => {
     }, []);
 
     const columns = [
-        {dataField: 'name', text: 'Name', sort: true},
+        {dataField: 'name', text: 'Project name', sort: true},
         {dataField: 'proj_start_date', text: 'Start date', sort:true},
         {dataField: 'button', text: ""}
     ];
@@ -35,7 +35,7 @@ const Projects = () => {
 
     return (
         <div>
-            Projects:
+            <h3>Projects:</h3>
             <BootstrapTable keyField='id' data={ projects } columns={ columns } defaultSorted={defaultSorted}/>
         </div>
     )
