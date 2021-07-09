@@ -2,31 +2,18 @@ import os
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager, \
-    current_user, login_user, logout_user, login_required
 from flask_migrate import Migrate
-from inteleXual.models import db, User
+from inteleXual.models import db
 from inteleXual.api.projects import projects
-# from inteleXual.api.session import session
-# from inteleXual.api.users import users
 from inteleXual.config import Config
 from datetime import datetime
 
 
 app = Flask(__name__)
-login_manager = LoginManager(app)
 migrate = Migrate(app, db)
 app.config.from_object(Config)
 app.register_blueprint(projects, url_prefix='/api/projects')
-# app.register_blueprint(session, url_prefix='/api/session')
-# app.register_blueprint(users, url_prefix='/api/users')
 db.init_app(app)
-
-
-# Does the following get used for anything?
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
 
 
 # Application Security
@@ -51,11 +38,3 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
-
-
-@app.route('/restore')
-def restore():
-    id = current_user.id if current_user.is_authenticated else None
-    user = None if not current_user.is_authenticated else current_user.to_dict()
-    if current_user:
-        return {"current_user": user}

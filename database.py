@@ -10,21 +10,23 @@ seed(1)
 fake = Faker()
 load_dotenv()
 
-n_projects = 20
+n_projects = 10
 prob_assign = 0.7
 n_files = 10
+n_users = 10
 
 users = [("demo@aol.com", "Demo User"), ("jdoe@aol.com", "John Doe")]
 
 with app.app_context():
     db.drop_all()
     db.create_all()
-    for user in users:
+    # for user in users:
+    for i = range(n_users):
         created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
         db.session.add(User(
-            email=user[0],
-            name=user[1],
-            password="password",
+            email = fake.email
+            # email=user[0],
+            # name=user[1],
             created_at=created_at,
             updated_at=fake.date_time_between(start_date=created_at)
         ))
