@@ -20,11 +20,9 @@ def one(id):
         file_list = list()
         files = File.query.filter(File.project_id == id)
         for file in files:
-            file_type = FileType.query.get(file.file_type_id).name
             file = file.to_dict()
-            file["file_type"] = file_type
+            file["file_type"] = FileType.query.get(file["file_type_id"]).name
             file_list.append(file)
-        # files = [file.to_dict() for file in File.query.filter(File.project_id == id)]
         assignments = Assignment.query.filter(Assignment.project_id == id)
         users = list()
         for assignment in assignments:
