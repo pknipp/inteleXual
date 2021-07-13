@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import bootstrap from 'bootstrap';
+// import bootstrap from 'bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 
 const Projects = () => {
@@ -36,7 +36,12 @@ const Projects = () => {
     return (
         <div>
             <h3>Projects:</h3>
-            <BootstrapTable keyField='id' data={ projects } columns={ columns } defaultSorted={defaultSorted}/>
+            <BootstrapTable
+                keyField='id'
+                data={ projects }
+                columns={ columns }
+                defaultSorted={defaultSorted}
+            />
         </div>
     )
 };

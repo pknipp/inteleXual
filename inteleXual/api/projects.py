@@ -8,7 +8,7 @@ projects = Blueprint('projects', __name__)
 
 
 @projects.route('', methods=['GET'])
-def index():
+def all():
     if request.method == 'GET':
         response = Project.query.all()
         return {"projects": [project.to_dict() for project in response]}
